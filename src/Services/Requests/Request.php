@@ -8,13 +8,15 @@ class Request
     private Post $post;
     private Server $server;
     private Session $session;
+    private Cookies $cookies;
 
-    public function __construct(array $get, array $post, array $server, array $session)
+    public function __construct(array $get, array $post, array $server)
     {
         $this->setGet(new Get($get));
         $this->setPost(new Post($post));
         $this->setServer(new Server($server));
-        $this->setSession(new Session($session));
+        $this->setSession(new Session());
+        $this->setCookies(new Cookies());
     }
 
     public function getGet(): Get
@@ -55,6 +57,16 @@ class Request
     public function setSession(Session $session): void
     {
         $this->session = $session;
+    }
+
+    public function getCookies(): Cookies
+    {
+        return $this->cookies;
+    }
+
+    public function setCookies(Cookies $cookies): void
+    {
+        $this->cookies = $cookies;
     }
 
     public function isHTTPS(): bool

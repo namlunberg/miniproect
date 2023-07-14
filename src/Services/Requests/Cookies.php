@@ -2,30 +2,35 @@
 
 namespace Services\Requests;
 
-class Session extends BaseGlobalsArray
+class Cookies extends BaseGlobalsArray
 {
+
+    public function createCookie(string $name, mixed $value, int $lifetime): void
+    {
+        setcookie($name, $value, time() + $lifetime, "/");
+    }
     public function getField(string $fieldName): ?string
     {
-        return $_SESSION[$fieldName] ?? null;
+        return $_COOKIE[$fieldName] ?? null;
     }
 
     public function getAll(): ?array
     {
-        return $_SESSION ?? null;
+        return $_COOKIE ?? null;
     }
 
     public function setField(string $name, mixed $value = false): void
     {
-        $_SESSION[$name] = $value;
+        $_COOKIE[$name] = $value;
     }
     public function removeField(string $name): void
     {
-        unset($_SESSION[$name]);
+        unset($_COOKIE[$name]);
     }
 
     public function isActive(): bool
     {
-        if (!empty($_SESSION)) {
+        if (!empty($_COOKIE)) {
             $result = true;
         } else {
             $result = false;
@@ -34,3 +39,4 @@ class Session extends BaseGlobalsArray
         return $result;
     }
 }
+

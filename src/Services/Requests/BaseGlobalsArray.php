@@ -24,4 +24,15 @@ abstract class BaseGlobalsArray
     {
         unset($this->array[$name]);
     }
+
+    public function isActive (): bool
+    {
+        if (!empty($this->array)) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
 }

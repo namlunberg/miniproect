@@ -3,25 +3,23 @@
 namespace Controllers;
 
 use Services\BaseConnect;
+use Services\Requests\Request;
 
-class NewsController {
-    private BaseConnect $connect;
-    public function __construct(BaseConnect $connect)
-    {
-        $this->connect = $connect;
-        $connect->setTableName("news");
-    }
-
-    public function getConnect(): BaseConnect
-    {
-        return $this->connect;
-    }
+class NewsController extends BaseController {
+public function __construct(BaseConnect $connect, Request $request)
+{
+    parent::__construct($connect, $request);
+    $connect->setTableName("news");
+}
 
     public function actionNews():void
     {
-        $newsRows = $this->connect->findAll();
-        include $_SERVER['DOCUMENT_ROOT'] . "/templates/header.php";
-        include $_SERVER['DOCUMENT_ROOT'] . "/templates/news.php";
-        include $_SERVER['DOCUMENT_ROOT'] . "/templates/footer.php";
+        $this->templateBuilder([
+            "layout/header",
+            "news/list",
+            "layout/footer"
+        ], [
+            "newsRows" => $this->connect->findAll(),
+        ]);
     }
 }
