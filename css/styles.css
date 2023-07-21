@@ -29,3 +29,7 @@ textarea.form-control{
 	text-align: justify;
 	
 }
+
+.admin-link__wrap {
+	margin-right: 30px;
+}

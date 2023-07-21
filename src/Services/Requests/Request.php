@@ -83,4 +83,5 @@ class Request
     {
         return ($this->isHTTPS() ? 'https' : 'http') . '://' . $this->getServer()->getField('HTTP_HOST') . $this->getServer()->getField('REQUEST_URI');
     }
+
 }

@@ -20,11 +20,21 @@ class Security
         return password_verify($passwordFromForm, $passwordFromDb);
     }
 
-    public function confirmAuth(array $authTry) :void
+    public function sidGenerator(): string
+    {
+        $sid = uniqid();
+        $sidInBase = $this->connect->findBy(["sid" => $sid]);
+        if (!empty($sidInBase)) {
+            $sid = $this->sidGenerator();
+        }
+        return $sid;
+    }
+
+    public function confirmAuth(int $userId) :void
     {
         $sidValue = $this->sidGenerator();
-        $this->request->getCookies()->createCookie("sid", "$sidValue", 1800);
-        $this->connect->updateBy(["sid"=>$sidValue], $authTry["id"]);
+        $this->request->getCookies()->createCookie("sid", $sidValue, 18000);
+        $this->connect->updateBy(["sid"=>$sidValue], $userId);
     }
 
     public function isAuth(): bool
@@ -39,13 +49,24 @@ class Security
         return $result;
     }
 
-    public function sidGenerator(): string
+    public function isAuthTableName(string $tableName): bool
     {
-        $sid = uniqid();
-        $sidInBase = $this->connect->findBy(["sid" => $sid]);
-        if (!empty($sidInBase)) {
-            $sid = $this->sidGenerator();
+        $this->connect->setTableName($tableName);
+        $sid = $this->request->getCookies()->getField("sid");
+        $sidInBase = $this->connect->findOne(["sid"=>$sid]);
+        if ($sidInBase) {
+            $result = true;
+        } else {
+            $result = false;
         }
-        return $sid;
+        return $result;
     }
+
+    public function updateAuth(string $tableName): void
+    {
+        $this->connect->setTableName($tableName);
+        $userString = $this->connect->findOne(["sid"=>$this->request->getCookies()->getField("sid")]);
+        $this->confirmAuth($userString["id"]);
+    }
+
 }

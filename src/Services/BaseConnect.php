@@ -67,7 +67,7 @@ class BaseConnect
     public function findById (int $id): ?array
     {
         $query = "SELECT * FROM " . $this->getTableName() . " WHERE id =" . $id;
-        return $this->getRows($query);
+        return mysqli_fetch_assoc($this->query($query));
     }
 
     public function findAll(): array
@@ -112,9 +112,27 @@ class BaseConnect
         $this->query($query);
     }
 
-    public function countAll(): string
+    public function countQueryAll(): string
     {
-        $query = "SELECT COUNT(*) FROM " . $this->getTableName();
+        return "SELECT COUNT(*) FROM " . $this->getTableName();
+    }
+
+    public function countQueryBy(array $condition): string
+    {
+        $query = "SELECT COUNT(*) FROM " . $this->getTableName() . " WHERE ";
+        foreach ($condition as $key => $value) {
+            if (is_array($value)) {
+                $query .= "$key IN ('" . implode('\',\'', $value) . "') AND ";
+            } else {
+                $query .= "$key = '$value' AND ";
+            }
+        }
+        preg_match(pattern: "/ AND $/", subject: $query, matches: $result);
+        return trim($query, $result[0]);
+    }
+
+    public function countRows(string $query): string
+    {
         return mysqli_fetch_assoc($this->query($query))['COUNT(*)'];
     }
 
@@ -129,5 +147,22 @@ class BaseConnect
         $query .= " WHERE id = '" . $id . "'";
 
         $this->query($query);
+    }
+
+    public function deleteById(int $id): void
+    {
+        $query = "DELETE FROM " . $this->getTableName() . " WHERE id='" . $id . "'";
+        $this->query($query);
+    }
+
+    public function joinSelect(string $joinTable, array $needleParams, string $joinCheckParam, string $checkParam): array
+    {
+        $query = "SELECT " . $this->getTableName() . ".*, ";
+        foreach ($needleParams as $value) {
+            $query .= "$joinTable.$value, ";
+        }
+        $query = rtrim($query, ", ");
+        $query .= " FROM " . $this->getTableName() . " JOIN " . $joinTable . " ON $joinTable.$joinCheckParam = " . $this->getTableName() . ".$checkParam";
+        return $this->getRows($query);
     }
 }

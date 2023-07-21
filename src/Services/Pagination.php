@@ -38,9 +38,24 @@ class Pagination
         return rtrim($string, ",");
     }
 
-    public function buildQuery(): string
+    public function buildQuery(array $arrayCondition=[]): string
     {
-        return "SELECT * FROM " . $this->tableName . " ORDER BY " . $this->orderBuild($this->orderByArray) . " LIMIT " . $this->rowsSlice() . ", " . $this->rowsOnPage;
+        if (!empty($arrayCondition)){
+            $condition = $this->paginationWhereCondition($arrayCondition);
+        } else {
+            $condition = "";
+        }
+        return "SELECT * FROM " . $this->tableName . $condition . " ORDER BY " . $this->orderBuild($this->orderByArray) . " LIMIT " . $this->rowsSlice() . ", " . $this->rowsOnPage;
+    }
+
+    public function paginationWhereCondition(array $condition): string
+    {
+        $result = "";
+        foreach ($condition as $key => $value) {
+            $result .= " $key = '" . $value . "',";
+        }
+        $result = rtrim($result, ",");
+        return " WHERE" . $result;
     }
 
     public function sumPages(): int

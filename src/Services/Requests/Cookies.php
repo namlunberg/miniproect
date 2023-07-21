@@ -39,4 +39,3 @@ class Cookies extends BaseGlobalsArray
         return $result;
     }
 }
-

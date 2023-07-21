@@ -2,13 +2,14 @@
 
 namespace Controllers;
 
-use Services\BaseConnect;
-use Services\Requests\Request;
+use Services\ServiceContainer;
 
 class NewsController extends BaseController {
-public function __construct(BaseConnect $connect, Request $request)
+public function __construct()
 {
-    parent::__construct($connect, $request);
+    parent::__construct();
+    $connect = ServiceContainer::getService('connect');
+    $request = ServiceContainer::getService('request');
     $connect->setTableName("news");
 }
 

@@ -2,16 +2,17 @@
 
 namespace Controllers;
 
-use Services\BaseConnect;
-use Services\Requests\Request;
 use Services\Security;
+use Services\ServiceContainer;
 
 class AuthController extends BaseController
 {
     private Security $security;
-    public function __construct(BaseConnect $connect, Request $request)
+    public function __construct()
     {
-        parent::__construct($connect, $request);
+        parent::__construct();
+        $connect = ServiceContainer::getService('connect');
+        $request = ServiceContainer::getService('request');
         $this->security = new Security($this->connect, $this->request);
         $connect->setTableName("users");
     }
@@ -33,7 +34,8 @@ class AuthController extends BaseController
                 if (!$passwordVerify) {
                     $this->sessionGetter->setField("passwordAuth", "n");
                 } else {
-                    $this->security->confirmAuth($authTry);
+                    $userId = $authTry["id"];
+                    $this->security->confirmAuth($userId);
 
                     $currentUrl = "/?mode=admin";
                 }
