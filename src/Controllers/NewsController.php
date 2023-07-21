@@ -2,14 +2,17 @@
 
 namespace Controllers;
 
+use Services\BaseRepository;
 use Services\ServiceContainer;
 
 class NewsController extends BaseController {
-public function __construct()
-{
-    parent::__construct();
-    $this->connect->setTableName("news");
-}
+    private BaseRepository $newsTableConnect;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->newsTableConnect = ServiceContainer::getService('newsTableConnect');
+    }
 
     public function actionNews():void
     {
@@ -18,7 +21,7 @@ public function __construct()
             "news/list",
             "layout/footer"
         ], [
-            "newsRows" => $this->connect->findAll(),
+            "newsRows" => $this->newsTableConnect->findAll(),
         ]);
     }
 }

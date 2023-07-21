@@ -2,20 +2,20 @@
 
 namespace Services\Requests;
 
-use Services\BaseConnect;
+use Services\BaseRepository;
+use Services\ServiceContainer;
 
 class Sender
 {
-    private BaseConnect $connect;
-    public function __construct(BaseConnect $connect)
+    private BaseRepository $usersTableConnect;
+    public function __construct()
     {
-        $this->connect=$connect;
+        $this->usersTableConnect = ServiceContainer::getService('usersTableConnect');
     }
 
     public function sendMailToEachAdmin(): void
     {
-        $this->connect->setTableName("users");
-        $admins = $this->connect->findAll();
+        $admins = $this->usersTableConnect->findAll();
         foreach ($admins as $row) {
             if (!empty($row["email"])) {
                 mail($row["email"], "Test", "Была создана новая запись");

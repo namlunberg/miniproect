@@ -6,12 +6,13 @@ use Services\Requests\Request;
 
 class Security
 {
-    private BaseConnect $connect;
     private Request $request;
+    private BaseRepository $usersTableConnect;
+
     public function __construct()
     {
-        $this->connect = ServiceContainer::getService('connect');
         $this->request = ServiceContainer::getService('request');
+        $this->usersTableConnect = ServiceContainer::getService('usersTableConnect');
     }
 
     public function isCurrentPass(string $passwordFromForm, string $passwordFromDb): bool
@@ -22,7 +23,7 @@ class Security
     public function sidGenerator(): string
     {
         $sid = uniqid();
-        $sidInBase = $this->connect->findBy(["sid" => $sid]);
+        $sidInBase = $this->usersTableConnect->findBy(["sid" => $sid]);
         if (!empty($sidInBase)) {
             $sid = $this->sidGenerator();
         }
@@ -33,13 +34,13 @@ class Security
     {
         $sidValue = $this->sidGenerator();
         $this->request->getCookies()->createCookie("sid", $sidValue, 18000);
-        $this->connect->updateBy(["sid"=>$sidValue], $userId);
+        $this->usersTableConnect->updateBy(["sid"=>$sidValue], $userId);
     }
 
     public function isAuth(): bool
     {
         $sid = $this->request->getCookies()->getField("sid");
-        $sidInBase = $this->connect->findOne(["sid"=>$sid]);
+        $sidInBase = $this->usersTableConnect->findOne(["sid"=>$sid]);
         if ($sidInBase) {
             $result = true;
         } else {
@@ -50,9 +51,9 @@ class Security
 
     public function isAuthTableName(string $tableName): bool
     {
-        $this->connect->setTableName($tableName);
+        $this->usersTableConnect->setTableName($tableName);
         $sid = $this->request->getCookies()->getField("sid");
-        $sidInBase = $this->connect->findOne(["sid"=>$sid]);
+        $sidInBase = $this->usersTableConnect->findOne(["sid"=>$sid]);
         if ($sidInBase) {
             $result = true;
         } else {
@@ -63,8 +64,8 @@ class Security
 
     public function updateAuth(string $tableName): void
     {
-        $this->connect->setTableName($tableName);
-        $userString = $this->connect->findOne(["sid"=>$this->request->getCookies()->getField("sid")]);
+        $this->usersTableConnect->setTableName($tableName);
+        $userString = $this->usersTableConnect->findOne(["sid"=>$this->request->getCookies()->getField("sid")]);
         $this->confirmAuth($userString["id"]);
     }
 

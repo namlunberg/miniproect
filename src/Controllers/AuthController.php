@@ -2,19 +2,19 @@
 
 namespace Controllers;
 
+use Services\BaseRepository;
 use Services\Security;
 use Services\ServiceContainer;
 
 class AuthController extends BaseController
 {
     private Security $security;
+    private BaseRepository $usersTableConnect;
     public function __construct()
     {
         parent::__construct();
-        $connect = ServiceContainer::getService('connect');
-        $request = ServiceContainer::getService('request');
-        $this->security = new Security($this->connect, $this->request);
-        $connect->setTableName("users");
+        $this->security = new Security();
+        $this->usersTableConnect = ServiceContainer::getService("usersTableConnect");
     }
 
     public function actionAuth(): void
@@ -24,7 +24,7 @@ class AuthController extends BaseController
 
             $login = $this->postGetter->getField("login");
             $password = $this->postGetter->getField("password");
-            $authTry = $this->connect->findOne(["login"=>$login]);
+            $authTry = $this->usersTableConnect->findOne(["login"=>$login]);
             if (empty($authTry)) {
                 $this->sessionGetter->setField("loginAuth", "n");
             } else {
@@ -37,7 +37,7 @@ class AuthController extends BaseController
                     $userId = $authTry["id"];
                     $this->security->confirmAuth($userId);
 
-                    $currentUrl = "/?mode=admin";
+                    $currentUrl = "/admin";
                 }
             }
             header("location:" . $currentUrl);

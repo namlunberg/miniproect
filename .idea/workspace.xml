@@ -9,12 +9,15 @@
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/Admin/ReviewsCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Admin/ReviewsCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/Admin/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Admin/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/BaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/NewsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/BaseConnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/BaseConnect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Requests/Sender.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Requests/Sender.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Security.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Security.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reviews/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/reviewsCrud.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/reviewsCrud.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/usersCrud.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/usersCrud.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/adminLayout/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/adminLayout/header.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +79,7 @@
       <workItem from="1689661952362" duration="23944000" />
       <workItem from="1689747103932" duration="19505000" />
       <workItem from="1689833465053" duration="19437000" />
-      <workItem from="1689919710211" duration="4353000" />
+      <workItem from="1689919710211" duration="19432000" />
     </task>
     <servers />
   </component>

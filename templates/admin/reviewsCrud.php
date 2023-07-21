@@ -51,8 +51,8 @@
                 }
             }
         ?></div>
-        <div><a href="/?mode=admin&subModeAdmin=<?=$row["status"] === "0" ? "activateReview" : "deactivateReview"?>&id=<?=$row["id"]?>"><?=$row["status"] === "0" ? "активировать" : "деактивировать"?></a></div>
-        <div><a href="/?mode=admin&subModeAdmin=updateReview&id=<?=$row["id"]?>">изменить</a></div>
-        <div><a href="/?mode=admin&subModeAdmin=deleteReview&id=<?=$row["id"]?>">удалить</a></div>
+        <div><a href="/admin/<?=$row["status"] === "0" ? "activateReview" : "deactivateReview"?>?id=<?=$row["id"]?>"><?=$row["status"] === "0" ? "активировать" : "деактивировать"?></a></div>
+        <div><a href="/admin/updateReview?id=<?=$row["id"]?>">изменить</a></div>
+        <div><a href="/admin/deleteReview?id=<?=$row["id"]?>">удалить</a></div>
     </div>
 <?php } ?>

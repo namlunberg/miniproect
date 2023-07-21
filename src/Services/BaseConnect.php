@@ -6,38 +6,51 @@ use mysqli;
 
 class BaseConnect
 {
-    private string $hostName;
-    private string $user;
-    private string $password = "";
-    private string $baseName;
-    private \mysqli $conn;
-    private string $tableName;
+    protected static string $hostName;
+    protected static string $user;
+    protected static string $password = "";
+    protected static string $baseName;
+    protected static \mysqli $conn;
+
+    protected string $tableName;
 
     public function getConnect(): mysqli
     {
-        return $this->conn;
+        return self::$conn;
     }
 
-    public function __construct(string $hostName, string $user, string $baseName, string $password = "")
+    public static function setHostName(string $name): void
     {
-        $this->hostName = $hostName;
-        $this->user = $user;
-        $this->baseName = $baseName;
-        $this->password = $password;
+        self::$hostName = $name;
     }
 
-    public function connect(): mysqli
+    public static function setUser(string $user): void
     {
-        $this->conn = new mysqli($this->hostName, $this->user, $this->password, $this->baseName);
-        if ($this->conn->connect_error) {
-            die("Ошибка: " . $this->conn->connect_error);
+        self::$user = $user;
+    }
+
+    public static function setPassword(string $pass): void
+    {
+        self::$password = $pass;
+    }
+
+    public static function setBaseName(string $name): void
+    {
+        self::$baseName = $name;
+    }
+
+    public static function connect(): mysqli
+    {
+        self::$conn = new mysqli(self::$hostName, self::$user, self::$password, self::$baseName);
+        if (self::$conn->connect_error) {
+            die("Ошибка: " . self::$conn->connect_error);
         }
-        return $this->conn;
+        return self::$conn;
     }
 
     public function query(string $query): bool|\mysqli_result
     {
-        return $this->conn->query($query);
+        return self::$conn->query($query);
     }
 
     public function getRows(string $query): array
@@ -50,18 +63,6 @@ class BaseConnect
         }
 
         return $result;
-    }
-
-    public function setTableName (string $tableName): self
-    {
-        $this->tableName = $tableName;
-
-        return $this;
-    }
-
-    public function getTableName (): string
-    {
-        return $this->tableName;
     }
 
     public function findById (int $id): ?array

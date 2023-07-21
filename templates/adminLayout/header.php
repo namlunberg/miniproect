@@ -12,10 +12,10 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="admin-link__wrap nav-item<?= isset($get["subModeAdmin"]) ? (($get["subModeAdmin"] === "users") ? " active" : "") : " active"?>>">
-                    <a class="nav-link" href="/?mode=admin&subModeAdmin=users">Администраторы</a>
+                    <a class="nav-link" href="/admin/users">Администраторы</a>
                 </li>
                 <li class="admin-link__wrap nav-item<?= isset($get["subModeAdmin"]) ? (($get["subModeAdmin"] === "reviewsCrud") ? " active" : "") : ""?>">
-                    <a class="nav-link" href="/?mode=admin&subModeAdmin=reviewsCrud">Отзывы</a>
+                    <a class="nav-link" href="/admin/reviewsCrud">Отзывы</a>
                 </li>
             </ul>
         </div>

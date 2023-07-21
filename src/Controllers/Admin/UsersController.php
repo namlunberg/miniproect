@@ -3,20 +3,22 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Services\BaseRepository;
 use Services\Security;
 use Services\ServiceContainer;
 
 class UsersController extends BaseController
 {
     protected Security $security;
+    protected BaseRepository $usersTableConnect;
     public function __construct()
     {
         parent::__construct();
-        $this->security=ServiceContainer::getService("security");
-        $this->connect->setTableName("users");
+        $this->security = ServiceContainer::getService("security");
+        $this->usersTableConnect = ServiceContainer::getService("usersTableConnect");
 
         if (!$this->security->isAuth()) {
-            header("location:/?mode=auth");
+            header("location:/auth");
         }
     }
 
@@ -28,7 +30,7 @@ class UsersController extends BaseController
             "admin/usersCrud",
             "adminLayout/footer"
         ], [
-            'usersRows' => $this->connect->getRows("SELECT * FROM " . $this->connect->getTableName()),
+            'usersRows' => $this->usersTableConnect->getRows("SELECT * FROM " . $this->usersTableConnect->getTableName()),
             'get' => $this->request->getGet()->getAll(),
         ]);
     }
@@ -46,9 +48,9 @@ class UsersController extends BaseController
                 }
             }
             unset($updateArray["update"]);
-            $this->connect->updateBy($updateArray, $this->getGetter->getField("id"));
-            $currentUrl = "?mode=admin";
-            header("location:/" . $currentUrl);
+            $this->usersTableConnect->updateBy($updateArray, $this->getGetter->getField("id"));
+            $currentUrl = "/admin";
+            header("location:" . $currentUrl);
             exit();
         }
 
@@ -57,7 +59,7 @@ class UsersController extends BaseController
             "admin/userUpdate",
             "adminLayout/footer"
         ], [
-            "userRow" => $this->connect->findById($this->getGetter->getField("id")),
+            "userRow" => $this->usersTableConnect->findById($this->getGetter->getField("id")),
         ]);
     }
 
@@ -69,17 +71,17 @@ class UsersController extends BaseController
             $login = $this->postGetter->getField("login");
             $password = $this->postGetter->getField("password");
             $email = $this->postGetter->getField("email");
-            $createTry = $this->connect->findOne(["login"=>$login]);
-            $mailCheck = ( (!empty($email)) ? $this->connect->findOne(["email"=>$email]) : NULL );
+            $createTry = $this->usersTableConnect->findOne(["login"=>$login]);
+            $mailCheck = ( (!empty($email)) ? $this->usersTableConnect->findOne(["email"=>$email]) : NULL );
             if (!empty($createTry)) {
                 $this->sessionGetter->setField("loginCreate", "n");
             } elseif (!empty($mailCheck)) {
                 $this->sessionGetter->setField("emailCreate", "n");
             } else {
                 $password = password_hash($password, PASSWORD_BCRYPT);
-                $this->connect->insertBy(["login"=>$login, "password"=>$password, "email"=>$email]);
+                $this->usersTableConnect->insertBy(["login"=>$login, "password"=>$password, "email"=>$email]);
 
-                $currentUrl = "/?mode=admin";
+                $currentUrl = "/admin";
             }
             header("location:" . $currentUrl);
             exit;
@@ -104,9 +106,9 @@ class UsersController extends BaseController
     public function actionUserDelete(): never
     {
         $id = $this->getGetter->getField("id");
-        $this->connect->deleteById($id);
+        $this->usersTableConnect->deleteById($id);
 
-        $currentUrl = "/?mode=admin";
+        $currentUrl = "/admin";
         header("location:" . $currentUrl);
         exit();
     }
