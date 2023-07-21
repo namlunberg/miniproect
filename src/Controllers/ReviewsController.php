@@ -12,10 +12,8 @@ class ReviewsController extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $connect = ServiceContainer::getService('connect');
-        $request = ServiceContainer::getService('request');
-        $connect->setTableName("reviews");
-        $this->sender = new Sender($connect);
+        $this->connect->setTableName("reviews");
+        $this->sender = new Sender($this->connect);
     }
 
     public function actionList():void
@@ -45,6 +43,8 @@ class ReviewsController extends BaseController
         ], [
             'reviewsRows' => $this->connect->query($pagination->buildQuery(["status" => "1"])),
             'sessionGetter' => $this->sessionGetter,
+            'rowsOnPage' => "5",
+            'sumRows' => $this->connect->countRows($this->connect->countQueryBy(["status"=>"1"])),
         ], [
             "pageNumber" => $pagination->getPageNumber(),
             "sumPages" => $pagination->sumPages(),

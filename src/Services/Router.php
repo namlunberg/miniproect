@@ -8,9 +8,9 @@ class Router
 {
     private array $routs=[];
     private Request $request;
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->request = $request;
+        $this->request = ServiceContainer::getService('request');
     }
 
     public function addRouts(array $routes): void

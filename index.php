@@ -20,10 +20,10 @@ ServiceContainer::addService('connect',$connect);
 $request = new Request($_GET, $_POST, $_SERVER);
 ServiceContainer::addService('request',$request);
 
-$security = new Security($connect, $request);
+$security = new Security();
 ServiceContainer::addService('security',$security);
 
-$router = new Router($request);
+$router = new Router();
 ServiceContainer::addService('router',$router);
 
 

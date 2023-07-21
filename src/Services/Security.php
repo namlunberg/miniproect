@@ -2,17 +2,16 @@
 
 namespace Services;
 
-use Services\BaseConnect;
 use Services\Requests\Request;
 
 class Security
 {
     private BaseConnect $connect;
     private Request $request;
-    public function __construct(BaseConnect $connect, Request $request)
+    public function __construct()
     {
-        $this->connect = $connect;
-        $this->request = $request;
+        $this->connect = ServiceContainer::getService('connect');
+        $this->request = ServiceContainer::getService('request');
     }
 
     public function isCurrentPass(string $passwordFromForm, string $passwordFromDb): bool

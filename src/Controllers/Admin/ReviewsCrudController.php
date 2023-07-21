@@ -2,18 +2,17 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
-use Services\BaseConnect;
 use Services\Pagination;
-use Services\Requests\Request;
 use Services\Security;
+use Services\ServiceContainer;
 
 class ReviewsCrudController extends BaseController
 {
     protected Security $security;
-    public function __construct(BaseConnect $connect, Request $request, Security $security)
+    public function __construct()
     {
-        parent::__construct($connect, $request);
-        $this->security=$security;
+        parent::__construct();
+        $this->security=ServiceContainer::getService("security");
         $this->connect->setTableName("users");
 
         if (!$this->security->isAuth()) {

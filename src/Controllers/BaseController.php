@@ -21,7 +21,7 @@ abstract class BaseController
 
     public function __construct()
     {
-        $this->connect = ServiceContainer::getService('connect');;
+        $this->connect = ServiceContainer::getService('connect');
         $this->request = ServiceContainer::getService('request');
         $this->postGetter = $this->request->getPost();
         $this->sessionGetter = $this->request->getSession();

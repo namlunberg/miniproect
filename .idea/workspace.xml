@@ -6,19 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="202da5a0-322c-4803-9533-d1c19aca4663" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/AdminController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/Admin/ReviewsCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Admin/ReviewsCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/Admin/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Admin/UsersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/BaseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/NewsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/BaseConnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/BaseConnect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Pagination.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Pagination.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Requests/Cookies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Requests/Cookies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Requests/Request.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Requests/Request.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Router.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Security.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Security.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/reviews/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/list.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +76,7 @@
       <workItem from="1689661952362" duration="23944000" />
       <workItem from="1689747103932" duration="19505000" />
       <workItem from="1689833465053" duration="19437000" />
-      <workItem from="1689919710211" duration="1161000" />
+      <workItem from="1689919710211" duration="4353000" />
     </task>
     <servers />
   </component>

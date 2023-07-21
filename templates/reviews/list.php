@@ -1,6 +1,7 @@
 
 <div id="wrapper">
     <h1>Гостевая книга</h1>
+    <?php if($sumRows > $rowsOnPage) {?>
     <div>
         <nav>
             <ul class="pagination">
@@ -40,6 +41,7 @@
             </ul>
         </nav>
     </div>
+    <?php }?>
     <?php foreach ($reviewsRows as $row) {?>
         <div class="note">
             <p>
