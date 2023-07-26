@@ -4,10 +4,12 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 require $_SERVER['DOCUMENT_ROOT'] . "/src/autoload.php";
 
 use Services\BaseConnect;
-use Services\BaseRepository;
+use Services\Repositories\UsersRepository;
+use Services\Repositories\ReviewsRepository;
+use Services\Repositories\NewsRepository;
 use Services\Requests\Request;
-use Services\Security;
 use Services\Router;
+use Services\Security;
 use Services\ServiceContainer;
 
 session_start();
@@ -20,17 +22,14 @@ BaseConnect::connect();
 $connect = new BaseConnect();
 ServiceContainer::addService('connect',$connect);
 
-$usersTableConnect = new BaseRepository();
-$usersTableConnect->setTableName("users");
-ServiceContainer::addService('usersTableConnect', $usersTableConnect);
+$usersRepository = new UsersRepository();
+ServiceContainer::addService('usersRepository', $usersRepository);
 
-$reviewsTableConnect = new BaseRepository();
-$reviewsTableConnect->setTableName("reviews");
-ServiceContainer::addService('reviewsTableConnect', $reviewsTableConnect);
+$reviewsRepository = new ReviewsRepository();
+ServiceContainer::addService('reviewsRepository', $reviewsRepository);
 
-$newsTableConnect = new BaseRepository();
-$newsTableConnect->setTableName("news");
-ServiceContainer::addService('newsTableConnect', $newsTableConnect);
+$newsConnect = new NewsRepository();
+ServiceContainer::addService('newsConnect', $newsConnect);
 
 $request = new Request($_GET, $_POST, $_SERVER);
 ServiceContainer::addService('request',$request);

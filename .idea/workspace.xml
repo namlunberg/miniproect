@@ -12,12 +12,12 @@
       <change beforePath="$PROJECT_DIR$/src/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/NewsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/BaseConnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/BaseConnect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/BaseRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Pagination.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Pagination.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Requests/Sender.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Requests/Sender.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Security.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Security.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/reviewsCrud.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/reviewsCrud.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/usersCrud.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/usersCrud.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/adminLayout/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/adminLayout/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/reviews/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/list.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,11 +52,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\soft\OSPanel\domains\miniproekt\src\Services" />
       <recent name="C:\soft\OSPanel\domains\miniproekt\templates\news" />
       <recent name="C:\soft\OSPanel\domains\miniproekt\templates\reviews" />
       <recent name="C:\soft\OSPanel\domains\miniproekt\templates\layout" />
       <recent name="C:\soft\OSPanel\domains\miniproekt\src\Services\Requests" />
-      <recent name="C:\soft\OSPanel\domains\miniproekt\src\Cervices" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -79,7 +79,8 @@
       <workItem from="1689661952362" duration="23944000" />
       <workItem from="1689747103932" duration="19505000" />
       <workItem from="1689833465053" duration="19437000" />
-      <workItem from="1689919710211" duration="19432000" />
+      <workItem from="1689919710211" duration="20919000" />
+      <workItem from="1690266069017" duration="24615000" />
     </task>
     <servers />
   </component>

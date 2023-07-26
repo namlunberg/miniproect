@@ -7,7 +7,7 @@
                         <span aria-hidden="true">&laquo;</span>
                     </span>
                 <?php } else { ?>
-                    <a href="<?=($pageNumber > 2 ? $currentUrl . "&page=" . $pageNumber-1 : $currentUrl)?>" aria-label="Previous">
+                    <a href="<?=($pageNumber > 2 ? $currentUrl . "?page=" . $pageNumber-1 : $currentUrl)?>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 <?php }?>
@@ -19,7 +19,7 @@
                     </li>
                 <?php } else {?>
                     <li>
-                        <a href="<?=($i === 1) ? $currentUrl : $currentUrl . "&page=" . $i?>"><?=$i?></a>
+                        <a href="<?=($i === 1) ? $currentUrl : $currentUrl . "?page=" . $i?>"><?=$i?></a>
                     </li>
                 <?php }?>
             <?php }?>
@@ -29,7 +29,7 @@
                         <span aria-hidden="true">&raquo;</span>
                     </span>
                 <?php } else { ?>
-                    <a href="<?=$currentUrl?>&page=<?=($pageNumber !== 1) ? $pageNumber+1 : 2?>" aria-label="Next">
+                    <a href="<?=$currentUrl?>?page=<?=($pageNumber !== 1) ? $pageNumber+1 : 2?>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 <?php }?>

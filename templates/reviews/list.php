@@ -1,7 +1,7 @@
 
 <div id="wrapper">
     <h1>Гостевая книга</h1>
-    <?php if($sumRows > $rowsOnPage) {?>
+    <?php if($sumPages > 1) {?>
     <div>
         <nav>
             <ul class="pagination">

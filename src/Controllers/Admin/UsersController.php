@@ -3,19 +3,19 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
-use Services\BaseRepository;
+use Services\Repositories\usersRepository;
 use Services\Security;
 use Services\ServiceContainer;
 
 class UsersController extends BaseController
 {
     protected Security $security;
-    protected BaseRepository $usersTableConnect;
+    protected usersRepository $usersRepository;
     public function __construct()
     {
         parent::__construct();
         $this->security = ServiceContainer::getService("security");
-        $this->usersTableConnect = ServiceContainer::getService("usersTableConnect");
+        $this->usersRepository = ServiceContainer::getService("usersRepository");
 
         if (!$this->security->isAuth()) {
             header("location:/auth");
@@ -30,7 +30,7 @@ class UsersController extends BaseController
             "admin/usersCrud",
             "adminLayout/footer"
         ], [
-            'usersRows' => $this->usersTableConnect->getRows("SELECT * FROM " . $this->usersTableConnect->getTableName()),
+            'usersRows' => $this->usersRepository->getRows("SELECT * FROM " . $this->usersRepository->getTableName()),
             'get' => $this->request->getGet()->getAll(),
         ]);
     }
@@ -48,7 +48,7 @@ class UsersController extends BaseController
                 }
             }
             unset($updateArray["update"]);
-            $this->usersTableConnect->updateBy($updateArray, $this->getGetter->getField("id"));
+            $this->usersRepository->updateBy($updateArray, $this->getGetter->getField("id"));
             $currentUrl = "/admin";
             header("location:" . $currentUrl);
             exit();
@@ -59,7 +59,7 @@ class UsersController extends BaseController
             "admin/userUpdate",
             "adminLayout/footer"
         ], [
-            "userRow" => $this->usersTableConnect->findById($this->getGetter->getField("id")),
+            "userRow" => $this->usersRepository->findById($this->getGetter->getField("id")),
         ]);
     }
 
@@ -71,15 +71,15 @@ class UsersController extends BaseController
             $login = $this->postGetter->getField("login");
             $password = $this->postGetter->getField("password");
             $email = $this->postGetter->getField("email");
-            $createTry = $this->usersTableConnect->findOne(["login"=>$login]);
-            $mailCheck = ( (!empty($email)) ? $this->usersTableConnect->findOne(["email"=>$email]) : NULL );
+            $createTry = $this->usersRepository->findOne(["login"=>$login]);
+            $mailCheck = ( (!empty($email)) ? $this->usersRepository->findOne(["email"=>$email]) : NULL );
             if (!empty($createTry)) {
                 $this->sessionGetter->setField("loginCreate", "n");
             } elseif (!empty($mailCheck)) {
                 $this->sessionGetter->setField("emailCreate", "n");
             } else {
                 $password = password_hash($password, PASSWORD_BCRYPT);
-                $this->usersTableConnect->insertBy(["login"=>$login, "password"=>$password, "email"=>$email]);
+                $this->usersRepository->insertBy(["login"=>$login, "password"=>$password, "email"=>$email]);
 
                 $currentUrl = "/admin";
             }
@@ -106,7 +106,7 @@ class UsersController extends BaseController
     public function actionUserDelete(): never
     {
         $id = $this->getGetter->getField("id");
-        $this->usersTableConnect->deleteById($id);
+        $this->usersRepository->deleteById($id);
 
         $currentUrl = "/admin";
         header("location:" . $currentUrl);

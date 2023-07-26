@@ -2,22 +2,23 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
-use Services\BaseRepository;
 use Services\Pagination;
+use Services\Repositories\UsersRepository;
+use Services\Repositories\ReviewsRepository;
 use Services\Security;
 use Services\ServiceContainer;
 
 class ReviewsCrudController extends BaseController
 {
     protected Security $security;
-    protected BaseRepository $usersTableConnect;
-    protected BaseRepository $reviewsTableConnect;
+    protected UsersRepository $usersRepository;
+    protected ReviewsRepository $reviewsRepository;
     public function __construct()
     {
         parent::__construct();
         $this->security=ServiceContainer::getService("security");
-        $this->usersTableConnect = ServiceContainer::getService("usersTableConnect");
-        $this->reviewsTableConnect = ServiceContainer::getService("reviewsTableConnect");
+        $this->usersRepository = ServiceContainer::getService("usersRepository");
+        $this->reviewsRepository = ServiceContainer::getService("reviewsRepository");
 
         if (!$this->security->isAuth()) {
             header("location:/auth");
@@ -28,9 +29,9 @@ class ReviewsCrudController extends BaseController
 
     public function adminCheck(): void
     {
-        $adminDate = $this->usersTableConnect->findOne(["sid"=>$this->coockieGetter->getField("sid")]);
+        $adminDate = $this->usersRepository->findOne(["sid"=>$this->coockieGetter->getField("sid")]);
 
-        $this->reviewsTableConnect->updateBy(["adminId" => $adminDate["id"]], $this->getGetter->getField("id"));
+        $this->reviewsRepository->updateBy(["adminId" => $adminDate["id"]], $this->getGetter->getField("id"));
     }
 
     public function actionReviews(): void
@@ -40,19 +41,18 @@ class ReviewsCrudController extends BaseController
             $page = 1;
         }
 
-        $pagination = new Pagination($this->reviewsTableConnect->getTableName(), ["status" => "ASC"], 5, $this->reviewsTableConnect->countRows($this->reviewsTableConnect->countQueryAll()), $page);
 
         $this->templateBuilder([
             "adminLayout/header",
             "admin/reviewsCrud",
             "adminLayout/footer"
         ], [
-            "reviewsRows" => $this->reviewsTableConnect->query($pagination->buildQuery()),
-            "adminActivity" => $this->reviewsTableConnect->joinSelect("users", ['login'], "id", "adminId"),
+            "reviewsRows" => $this->reviewsRepository->getPaginationCrudRows($page),
+            "adminActivity" => $this->reviewsRepository->joinSelect("users", ['login'], "id", "adminId"),
             "currentUrl" => "/admin/reviewsCrud",
         ], [
-            "pageNumber" => $pagination->getPageNumber(),
-            "sumPages" => $pagination->sumPages(),
+            "pageNumber" => $this->reviewsRepository->getPagination()->getPageNumber(),
+            "sumPages" => $this->reviewsRepository->getPagination()->sumPages(),
         ]);
     }
 
@@ -64,7 +64,7 @@ class ReviewsCrudController extends BaseController
                 $updateArray[$key] = $value;
             }
             unset($updateArray["update"]);
-            $this->reviewsTableConnect->updateBy($updateArray, $this->getGetter->getField("id"));
+            $this->reviewsRepository->updateBy($updateArray, $this->getGetter->getField("id"));
             $this->adminCheck();
             $currentUrl = "/admin/reviewsCrud";
             header("location:" . $currentUrl);
@@ -76,13 +76,13 @@ class ReviewsCrudController extends BaseController
             "admin/reviewUpdate",
             "adminLayout/footer"
         ], [
-            "reviewRow" => $this->reviewsTableConnect->findById($this->getGetter->getField("id")),
+            "reviewRow" => $this->reviewsRepository->findById($this->getGetter->getField("id")),
         ]);
     }
 
     public function actionReviewActivate(): never
     {
-        $this->reviewsTableConnect->updateBy(["status" => 1], $this->getGetter->getField("id"));
+        $this->reviewsRepository->updateBy(["status" => 1], $this->getGetter->getField("id"));
         $this->adminCheck();
         $currentUrl = "/admin/reviewsCrud";
         header("location:" . $currentUrl);
@@ -91,7 +91,7 @@ class ReviewsCrudController extends BaseController
 
     public function actionReviewDeactivate(): never
     {
-        $this->reviewsTableConnect->updateBy(["status" => 0], $this->getGetter->getField("id"));
+        $this->reviewsRepository->updateBy(["status" => 0], $this->getGetter->getField("id"));
         $this->adminCheck();
         $currentUrl = "/admin/reviewsCrud";
         header("location:" . $currentUrl);
@@ -101,7 +101,7 @@ class ReviewsCrudController extends BaseController
     public function actionReviewDelete(): never
     {
         $id = $this->getGetter->getField("id");
-        $this->reviewsTableConnect->deleteById($id);
+        $this->reviewsRepository->deleteById($id);
 
         $currentUrl = "/admin/reviewsCrud";
         header("location:" . $currentUrl);

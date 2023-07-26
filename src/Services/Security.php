@@ -2,17 +2,18 @@
 
 namespace Services;
 
+use Services\Repositories\UsersRepository;
 use Services\Requests\Request;
 
 class Security
 {
     private Request $request;
-    private BaseRepository $usersTableConnect;
+    private UsersRepository $usersRepository;
 
     public function __construct()
     {
         $this->request = ServiceContainer::getService('request');
-        $this->usersTableConnect = ServiceContainer::getService('usersTableConnect');
+        $this->usersRepository = ServiceContainer::getService('usersRepository');
     }
 
     public function isCurrentPass(string $passwordFromForm, string $passwordFromDb): bool
@@ -23,7 +24,7 @@ class Security
     public function sidGenerator(): string
     {
         $sid = uniqid();
-        $sidInBase = $this->usersTableConnect->findBy(["sid" => $sid]);
+        $sidInBase = $this->usersRepository->findBy(["sid" => $sid]);
         if (!empty($sidInBase)) {
             $sid = $this->sidGenerator();
         }
@@ -34,13 +35,13 @@ class Security
     {
         $sidValue = $this->sidGenerator();
         $this->request->getCookies()->createCookie("sid", $sidValue, 18000);
-        $this->usersTableConnect->updateBy(["sid"=>$sidValue], $userId);
+        $this->usersRepository->updateBy(["sid"=>$sidValue], $userId);
     }
 
     public function isAuth(): bool
     {
         $sid = $this->request->getCookies()->getField("sid");
-        $sidInBase = $this->usersTableConnect->findOne(["sid"=>$sid]);
+        $sidInBase = $this->usersRepository->findOne(["sid"=>$sid]);
         if ($sidInBase) {
             $result = true;
         } else {
@@ -51,9 +52,9 @@ class Security
 
     public function isAuthTableName(string $tableName): bool
     {
-        $this->usersTableConnect->setTableName($tableName);
+        $this->usersRepository->setTableName($tableName);
         $sid = $this->request->getCookies()->getField("sid");
-        $sidInBase = $this->usersTableConnect->findOne(["sid"=>$sid]);
+        $sidInBase = $this->usersRepository->findOne(["sid"=>$sid]);
         if ($sidInBase) {
             $result = true;
         } else {
@@ -64,8 +65,8 @@ class Security
 
     public function updateAuth(string $tableName): void
     {
-        $this->usersTableConnect->setTableName($tableName);
-        $userString = $this->usersTableConnect->findOne(["sid"=>$this->request->getCookies()->getField("sid")]);
+        $this->usersRepository->setTableName($tableName);
+        $userString = $this->usersRepository->findOne(["sid"=>$this->request->getCookies()->getField("sid")]);
         $this->confirmAuth($userString["id"]);
     }
 

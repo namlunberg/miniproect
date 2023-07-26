@@ -4,19 +4,21 @@ namespace Services;
 
 class Pagination
 {
-    private string $tableName;
-    private array $orderByArray;
-    private int $rowsOnPage;
-    private int $sumRows;
-    private int $pageNumber;
+    protected string $query;
+    protected int $rowsOnPage;
+    protected int $sumRows;
+    protected int $pageNumber;
 
-    public function __construct(string $tableName, array $orderByArray, int $rowsOnPage, int $sumRows, int $pageNumber)
+    public function __construct(string $query, int $pageNumber, int $rowsOnPage)
     {
-        $this->tableName = $tableName;
-        $this->orderByArray = $orderByArray;
+        $this->query = $query;
         $this->rowsOnPage = $rowsOnPage;
-        $this->sumRows = $sumRows;
         $this->pageNumber = $pageNumber;
+    }
+
+    public function setSumRows(int $sumRows): void
+    {
+        $this->sumRows = $sumRows;
     }
 
     public function getPageNumber(): int
@@ -35,17 +37,27 @@ class Pagination
         foreach ($orderBuild as $key => $value) {
             $string .= "$key " . "$value,";
         }
-        return rtrim($string, ",");
+        return " ORDER BY " . rtrim($string, ",");
     }
 
-    public function buildQuery(array $arrayCondition=[]): string
+    public function prepareQuery(array $arrayCondition=[], array $orderByArray=[]): string
     {
         if (!empty($arrayCondition)){
             $condition = $this->paginationWhereCondition($arrayCondition);
         } else {
             $condition = "";
         }
-        return "SELECT * FROM " . $this->tableName . $condition . " ORDER BY " . $this->orderBuild($this->orderByArray) . " LIMIT " . $this->rowsSlice() . ", " . $this->rowsOnPage;
+        if (!empty($orderByArray)){
+            $orderByArray = $this->orderBuild($orderByArray);
+        } else {
+            $orderByArray = "";
+        }
+        return $condition . $orderByArray;
+    }
+
+    public function buildQuery(string $preparedQuery): string
+    {
+        return $this->query . $preparedQuery . " LIMIT " . $this->rowsSlice() . ", " . $this->rowsOnPage;
     }
 
     public function paginationWhereCondition(array $condition): string

@@ -2,16 +2,16 @@
 
 namespace Controllers;
 
-use Services\BaseRepository;
+use Services\Repositories\NewsRepository;
 use Services\ServiceContainer;
 
 class NewsController extends BaseController {
-    private BaseRepository $newsTableConnect;
+    private NewsRepository $newsConnect;
 
     public function __construct()
     {
         parent::__construct();
-        $this->newsTableConnect = ServiceContainer::getService('newsTableConnect');
+        $this->newsConnect = ServiceContainer::getService('newsConnect');
     }
 
     public function actionNews():void
@@ -21,7 +21,7 @@ class NewsController extends BaseController {
             "news/list",
             "layout/footer"
         ], [
-            "newsRows" => $this->newsTableConnect->findAll(),
+            "newsRows" => $this->newsConnect->findAll(),
         ]);
     }
 }
