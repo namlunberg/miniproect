@@ -7,17 +7,7 @@
     <list default="true" id="202da5a0-322c-4803-9533-d1c19aca4663" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/Admin/ReviewsCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Admin/ReviewsCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/Admin/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Admin/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/NewsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ReviewsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/BaseRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Pagination.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Pagination.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Requests/Sender.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Requests/Sender.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Security.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Security.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/reviewsCrud.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/reviewsCrud.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reviews/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/TestingOfQueryBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TestingOfQueryBuilder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,10 +71,23 @@
       <workItem from="1689833465053" duration="19437000" />
       <workItem from="1689919710211" duration="20919000" />
       <workItem from="1690266069017" duration="24615000" />
+      <workItem from="1690353843735" duration="21542000" />
+      <workItem from="1690438131661" duration="6680000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
