@@ -4,7 +4,7 @@ namespace Services;
 
 use mysqli;
 
-class SecondTestingOfQueryBuilder
+class QueryBuilder
 {
     private string $queryMode;
     private string $tableName;
@@ -167,9 +167,19 @@ class SecondTestingOfQueryBuilder
         $this->where = $wherePart;
         return $this;
     }
-    public function orderBy(string $criterion, string $method="ASC"): self
+    public function orderBy(string|array $criterion, string $method="ASC"): self
     {
-        $this->orderBy = $criterion;
+        $orderByPart = "";
+        if (is_array($criterion)) {
+            foreach ($criterion as $value) {
+                $orderByPart .= "$value, ";
+            }
+            $orderByPart = rtrim($orderByPart, ", ");
+        } else {
+            $orderByPart .= $criterion;
+        }
+
+        $this->orderBy = $orderByPart;
         $this->orderByMethod = $method;
         return $this;
     }

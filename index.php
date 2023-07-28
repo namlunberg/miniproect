@@ -40,22 +40,6 @@ ServiceContainer::addService('security',$security);
 $router = new Router();
 ServiceContainer::addService('router',$router);
 
-use Services\TestingOfQueryBuilder;
-$testQB = new TestingOfQueryBuilder("reviews");
-
-$testQB->select();
-var_dump($testQB->getSelect());
-echo "<br>";
-$testQB->where(["1" => "a", "2" => "b", "3" => "c"], ["2" => "<"]);
-var_dump($testQB->getWhere());
-echo "<br>";
-$testQB->join("joinTable", ["a" => "1", "b" => "2", "c" => "3"], "OUTER");
-var_dump($testQB->getInnerJoin());
-echo "<br>";
-$testQB->insert([[1, 2, 3], [4, 5, 6], [7, 8, 9]], ["a", "b", "c"]);
-var_dump($testQB->getInsert());
-echo  "<br>";
-die();
 $router->addRouts([
     "/" => ["path" => "Controllers\ReviewsController", "action" => "list", "name"=>"review list"],
     "/auth" => ["path" => "Controllers\AuthController", "action" => "auth", "name"=>"authorization"],
