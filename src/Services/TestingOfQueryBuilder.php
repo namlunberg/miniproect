@@ -90,6 +90,7 @@ class TestingOfQueryBuilder
         }
 
         $this->select = "SELECT $selectString FROM $this->tableName ";
+        $this->valuesArray["tableName"] = $name;
         return $this;
     }
 
